@@ -16,7 +16,7 @@ app.listen(HTTP_PORT, () => {
 });
 // Root endpoint
 app.get("/", (req, res, next) => {
-    res.json({"message":"Ok"})
+    res.json({"message":"totp demo api"})
 });
 
 // Validate OTP
