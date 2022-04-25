@@ -4,12 +4,15 @@ var db = require("./database.js")
 var bp = require("body-parser");
 var se = require("speakeasy");
 var qr = require("qrcode");
+require('dotenv').config()
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
+// QR Code Domain
+var TOTP_DOMAIN= process.env.TOTP_DOMAIN || "@totp.meyatools.eu"
 // Server port
-var HTTP_PORT = 8081
+var HTTP_PORT = process.env.HTTP_PORT || 8080
 // Start server
 app.listen(HTTP_PORT, () => {
     console.log("Server running on port %PORT%".replace("%PORT%",HTTP_PORT))
@@ -48,7 +51,7 @@ app.post("/users", (req, res, next) => {
     var username = req.body.username;
     var secret = se.generateSecret({ length: 20 });
     var secret32 = secret.base32;
-    var otpauth_url = se.otpauthURL({ secret: secret.ascii, label: username+'@totp.meyatools.eu'});
+    var otpauth_url = se.otpauthURL({ secret: secret.ascii, label: username+"@"+TOTP_DOMAIN});
     var qr_url;
     qr.toDataURL(otpauth_url, function (err, url) {
         qr_url = url
