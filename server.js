@@ -10,7 +10,7 @@ app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 
 // QR Code Domain
-var TOTP_DOMAIN= process.env.TOTP_DOMAIN || "@totp.meyatools.eu"
+var TOTP_DOMAIN= process.env.TOTP_DOMAIN || "totp.meyatools.eu"
 // Server port
 var HTTP_PORT = process.env.HTTP_PORT || 8080
 // Start server
